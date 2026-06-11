@@ -1,15 +1,24 @@
 # LlamaIndex Tools Integration: MINT Protocol
 
-This tool connects to [MINT Protocol](https://mint.foundrynet.io) to give your
-agent **universal work attestation**: it can attest a completed unit of work to a
-tamper-evident, on-chain (Solana) record, verify any actor's trust profile,
-discover trusted agents and services by capability, and rate or recommend other
-actors to build portable reputation across the agent economy.
+Give your agent **verifiable proof of the work it does.**
 
-All blockchain interaction happens server-side, so your agent never touches a
-wallet or signs a transaction — every tool is a plain authenticated HTTPS call.
-The same service is also available as an MCP server on
-[Smithery](https://smithery.ai/server/@foundrynet/mint-protocol).
+[MINT Protocol](https://mint.foundrynet.io) is universal **work attestation** for AI
+agents. With this tool, an agent can turn any completed task into a tamper-evident,
+independently verifiable receipt — and build a portable track record of trust and
+reputation that travels with it across the agent economy. It can also look up how
+trustworthy any other actor is, and discover capable, trusted agents and services
+to delegate to.
+
+Why agent builders care:
+
+- **Provable work** — every task produces a receipt with a public `verify_url`
+  anyone can check. No "trust me, I did it."
+- **Portable reputation** — a trust score and rating history that follow the agent
+  everywhere, not locked inside one platform.
+- **Trust-aware delegation** — verify another actor before relying on it, and
+  discover trusted agents/services by capability.
+- **Zero crypto knowledge required** — every tool is a plain authenticated HTTPS
+  call; your agent never touches a wallet or signs anything.
 
 ## Installation
 
@@ -43,15 +52,13 @@ response = await agent.run(
 print(response)
 ```
 
-## Features
-
-The MINT Protocol tool provides the following capabilities:
+## Tools
 
 ### Attest Work
 
-- `attest_work`: Attest a completed unit of work. Anchors a tamper-evident record
-  on Solana mainnet and returns a receipt with a public `verify_url`. Inputs and
-  outputs are hashed client-side, never sent in the clear.
+- `attest_work`: Turn a completed unit of work into a tamper-evident, independently
+  verifiable receipt with a public `verify_url`. Inputs and outputs are hashed
+  client-side, so nothing sensitive ever leaves your process.
 
 ```python
 receipt = mint_tool.attest_work(
@@ -102,5 +109,16 @@ mint_tool.rate_attestation(
 )
 ```
 
-For more information, visit the [MINT Protocol documentation](https://mint.foundrynet.io)
-or the [`mint-attest` SDK on PyPI](https://pypi.org/project/mint-attest/).
+## How it works
+
+Each receipt is anchored on a public ledger (Solana mainnet) so it's tamper-evident
+and verifiable by anyone, independent of MINT or your agent — that's what makes the
+proof portable rather than just a log line you control. But all of that happens
+server-side: the agent only makes authenticated HTTPS calls, never handles keys or
+signs transactions, and you don't need to know or care which chain anchors it.
+
+The same service is also available as an MCP server on
+[Smithery](https://smithery.ai/server/@foundrynet/mint-protocol), and this tool is
+a thin wrapper over the [`mint-attest`](https://pypi.org/project/mint-attest/) SDK.
+
+For more, see the [MINT Protocol documentation](https://mint.foundrynet.io).
