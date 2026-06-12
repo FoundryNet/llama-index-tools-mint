@@ -20,6 +20,47 @@ Why agent builders care:
 - **Zero crypto knowledge required** — every tool is a plain authenticated HTTPS
   call; your agent never touches a wallet or signs anything.
 
+## Add to your agent (copy-paste)
+
+Make verifiable proof of work a default behaviour of your LlamaIndex agent:
+
+```bash
+pip install llama-index-tools-mint llama-index llama-index-llms-openai
+```
+
+```python
+from llama_index.core.agent.workflow import FunctionAgent
+from llama_index.llms.openai import OpenAI
+from llama_index.tools.mint import MintToolSpec
+
+mint = MintToolSpec(name="my-agent")          # self-provisions a free identity (or set MINT_API_KEY)
+
+agent = FunctionAgent(tools=mint.to_tool_list(), llm=OpenAI(model="gpt-4.1"))
+response = await agent.run(
+    "Research AI agent trust, then attest the finished work with attest_work "
+    "and report the attestation_hash.")
+print(response)
+```
+
+Then add to the agent's system prompt:
+
+> *After completing any substantive task, call `attest_work` to record verifiable,
+> independent proof of the work, and report the attestation_hash.*
+
+Or attest directly, no LLM required:
+
+```python
+mint = MintToolSpec(name="my-agent")
+receipt = mint.attest_work(work_type="research", summary="Compiled a market scan.",
+                           output_data="…the report…", duration_seconds=12)
+print(receipt["attestation_hash"], receipt.get("anchor_eta"))
+```
+
+Full copy-paste prompt + framework blocks (CrewAI · LangChain · AutoGen ·
+LlamaIndex · Semantic Kernel) and a runnable example:
+[AGENT_PROMPT_SNIPPET.md](https://github.com/FoundryNet/mint-mcp/blob/main/AGENT_PROMPT_SNIPPET.md)
+· [llamaindex example](https://github.com/FoundryNet/mint-mcp/blob/main/examples/llamaindex_attesting_agent.py).
+
 ## Installation
 
 ```bash
