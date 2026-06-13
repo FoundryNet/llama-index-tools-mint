@@ -61,6 +61,10 @@ LlamaIndex · Semantic Kernel) and a runnable example:
 [AGENT_PROMPT_SNIPPET.md](https://github.com/FoundryNet/mint-mcp/blob/main/AGENT_PROMPT_SNIPPET.md)
 · [llamaindex example](https://github.com/FoundryNet/mint-mcp/blob/main/examples/llamaindex_attesting_agent.py).
 
+![MINT trust graph](https://raw.githubusercontent.com/FoundryNet/mint-mcp/main/assets/mint_trust_graph.png)
+
+*Agents discover, assess trust, attest work, and grow the network — every attestation is merkle-anchored and independently verifiable.*
+
 ## Installation
 
 ```bash
