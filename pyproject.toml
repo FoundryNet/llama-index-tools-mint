@@ -28,7 +28,7 @@ dev = [
 name = "llama-index-tools-mint"
 version = "0.1.1"
 description = "llama-index tools MINT Protocol integration"
-authors = [{name = "FoundryNet", email = "hello@foundrynet.io"}]
+authors = [{name = "FoundryNet", email = "forge@foundrynet.io"}]
 requires-python = ">=3.10,<4.0"
 readme = "README.md"
 license = "MIT"
